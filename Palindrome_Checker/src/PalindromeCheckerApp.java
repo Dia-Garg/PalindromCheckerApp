@@ -9,40 +9,57 @@ public class PalindromeCheckerApp {
         // UC1: Display Welcome Message
         displayWelcomeMessage();
 
-        // UC2: Print Hardcoded Palindrome Result
+        // UC2: Hardcoded Palindrome Result
         checkHardcodedPalindrome();
+
+        // UC3: Palindrome Check Using String Reverse
+        palindromeUsingReverse();
     }
 
-    // Method for UC1
+    // ================= UC1 =================
     private static void displayWelcomeMessage() {
         System.out.println("===========================================");
         System.out.println("        " + APP_NAME);
         System.out.println("              Version: " + VERSION);
         System.out.println("===========================================");
-        System.out.println("Application started successfully!");
-        System.out.println();
+        System.out.println("Application started successfully!\n");
     }
 
-    // Method for UC2
+    // ================= UC2 =================
     private static void checkHardcodedPalindrome() {
 
-        // Hardcoded string (String Literal)
         String word = "madam";
-
-        // Reverse the string manually
         String reversed = "";
 
         for (int i = word.length() - 1; i >= 0; i--) {
             reversed += word.charAt(i);
         }
 
-        // Conditional check using if-else
         if (word.equals(reversed)) {
-            System.out.println("The word \"" + word + "\" is a Palindrome.");
+            System.out.println("UC2 Result: \"" + word + "\" is a Palindrome.\n");
         } else {
-            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+            System.out.println("UC2 Result: \"" + word + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC3 =================
+    private static void palindromeUsingReverse() {
+
+        String original = "level";   // String Literal
+        String reversed = "";
+
+        // Reverse using for loop
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);   // String Concatenation
         }
 
-        System.out.println("\nProgram exited successfully.");
+        // Compare using equals() (content comparison)
+        if (original.equals(reversed)) {
+            System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.");
+        }
+
+        System.out.println("\nProgram execution completed.");
     }
 }
