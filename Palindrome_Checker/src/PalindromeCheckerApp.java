@@ -6,13 +6,14 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
+        // UC1: Display Welcome Message
         displayWelcomeMessage();
 
-        // Future use case can be called here
-        // For now, program ends after welcome message
+        // UC2: Print Hardcoded Palindrome Result
+        checkHardcodedPalindrome();
     }
 
-    // Method to display application details
+    // Method for UC1
     private static void displayWelcomeMessage() {
         System.out.println("===========================================");
         System.out.println("        " + APP_NAME);
@@ -20,5 +21,28 @@ public class PalindromeCheckerApp {
         System.out.println("===========================================");
         System.out.println("Application started successfully!");
         System.out.println();
+    }
+
+    // Method for UC2
+    private static void checkHardcodedPalindrome() {
+
+        // Hardcoded string (String Literal)
+        String word = "madam";
+
+        // Reverse the string manually
+        String reversed = "";
+
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reversed += word.charAt(i);
+        }
+
+        // Conditional check using if-else
+        if (word.equals(reversed)) {
+            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        } else {
+            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+        }
+
+        System.out.println("\nProgram exited successfully.");
     }
 }
