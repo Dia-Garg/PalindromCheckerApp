@@ -1,37 +1,24 @@
-import java.util.Scanner;
-
 public class PalindromeCheckerApp {
 
-    // Method to check palindrome
-    public static boolean isPalindrome(String input) {
-        // Remove non-alphanumeric characters and convert to lowercase
-        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-
-        int left = 0;
-        int right = cleaned.length() - 1;
-
-        while (left < right) {
-            if (cleaned.charAt(left) != cleaned.charAt(right)) {
-                return false;
-            }
-            left++;
-            right--;
-        }
-        return true;
-    }
+    // Application constants
+    private static final String APP_NAME = "Palindrome Checker Application";
+    private static final String VERSION = "1.0.0";
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter a string:");
-        String input = sc.nextLine();
+        displayWelcomeMessage();
 
-        if (isPalindrome(input)) {
-            System.out.println("The given string is a Palindrome.");
-        } else {
-            System.out.println("The given string is NOT a Palindrome.");
-        }
+        // Future use case can be called here
+        // For now, program ends after welcome message
+    }
 
-        sc.close();
+    // Method to display application details
+    private static void displayWelcomeMessage() {
+        System.out.println("===========================================");
+        System.out.println("        " + APP_NAME);
+        System.out.println("              Version: " + VERSION);
+        System.out.println("===========================================");
+        System.out.println("Application started successfully!");
+        System.out.println();
     }
 }
