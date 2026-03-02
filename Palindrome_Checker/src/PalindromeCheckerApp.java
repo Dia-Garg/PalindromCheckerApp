@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
 
     // Application constants
@@ -6,14 +8,21 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // UC1: Display Welcome Message
         displayWelcomeMessage();
 
-        // UC2: Hardcoded Palindrome Result
-        checkHardcodedPalindrome();
+        // Take input once
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a word to check: ");
+        String input = scanner.nextLine();
 
-        // UC3: Palindrome Check Using String Reverse
-        palindromeUsingReverse();
+        // Call all methods using same input
+        checkUsingReverse(input);
+        checkUsingStringBuilder(input);
+        checkUsingCharArray(input);
+
+        scanner.close();
+
+        System.out.println("\nProgram execution completed.");
     }
 
     // ================= UC1 =================
@@ -21,21 +30,19 @@ public class PalindromeCheckerApp {
         System.out.println("===========================================");
         System.out.println("        " + APP_NAME);
         System.out.println("              Version: " + VERSION);
-        System.out.println("===========================================");
-        System.out.println("Application started successfully!\n");
+        System.out.println("===========================================\n");
     }
 
     // ================= UC2 =================
-    private static void checkHardcodedPalindrome() {
+    private static void checkUsingReverse(String word) {
 
-        String word = "madam";
         String reversed = "";
 
         for (int i = word.length() - 1; i >= 0; i--) {
             reversed += word.charAt(i);
         }
 
-        if (word.equals(reversed)) {
+        if (word.equalsIgnoreCase(reversed)) {
             System.out.println("UC2 Result: \"" + word + "\" is a Palindrome.\n");
         } else {
             System.out.println("UC2 Result: \"" + word + "\" is NOT a Palindrome.\n");
@@ -43,23 +50,42 @@ public class PalindromeCheckerApp {
     }
 
     // ================= UC3 =================
-    private static void palindromeUsingReverse() {
+    private static void checkUsingStringBuilder(String original) {
 
-        String original = "level";   // String Literal
-        String reversed = "";
+        String reversed = new StringBuilder(original).reverse().toString();
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);   // String Concatenation
-        }
-
-        // Compare using equals() (content comparison)
-        if (original.equals(reversed)) {
-            System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.");
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC4 =================
+    private static void checkUsingCharArray(String text) {
+
+        char[] characters = text.toCharArray();
+
+        int start = 0;
+        int end = characters.length - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (Character.toLowerCase(characters[start]) !=
+                    Character.toLowerCase(characters[end])) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
         }
 
-        System.out.println("\nProgram execution completed.");
+        if (isPalindrome) {
+            System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.");
+        }
     }
 }
