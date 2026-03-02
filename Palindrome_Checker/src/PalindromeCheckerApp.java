@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
 
@@ -14,10 +16,11 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word to check: ");
         String input = scanner.nextLine();
 
-        checkUsingReverse(input);
         checkUsingManualReverse(input);
+        checkUsingStringBuilder(input);
         checkUsingCharArray(input);
         checkUsingStack(input);
+        checkUsingQueueAndStack(input);
 
         scanner.close();
 
@@ -33,18 +36,6 @@ public class PalindromeCheckerApp {
     }
 
     // ================= UC2 =================
-    private static void checkUsingReverse(String word) {
-
-        String reversed = new StringBuilder(word).reverse().toString();
-
-        if (word.equalsIgnoreCase(reversed)) {
-            System.out.println("UC2 Result: \"" + word + "\" is a Palindrome.\n");
-        } else {
-            System.out.println("UC2 Result: \"" + word + "\" is NOT a Palindrome.\n");
-        }
-    }
-
-    // ================= UC3 =================
     private static void checkUsingManualReverse(String word) {
 
         String reversed = "";
@@ -53,11 +44,15 @@ public class PalindromeCheckerApp {
             reversed += word.charAt(i);
         }
 
-        if (word.equalsIgnoreCase(reversed)) {
-            System.out.println("UC3 Result: \"" + word + "\" is a Palindrome.\n");
-        } else {
-            System.out.println("UC3 Result: \"" + word + "\" is NOT a Palindrome.\n");
-        }
+        printResult("UC2", word, word.equalsIgnoreCase(reversed));
+    }
+
+    // ================= UC3 =================
+    private static void checkUsingStringBuilder(String word) {
+
+        String reversed = new StringBuilder(word).reverse().toString();
+
+        printResult("UC3", word, word.equalsIgnoreCase(reversed));
     }
 
     // ================= UC4 =================
@@ -80,11 +75,7 @@ public class PalindromeCheckerApp {
             end--;
         }
 
-        if (isPalindrome) {
-            System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.\n");
-        } else {
-            System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.\n");
-        }
+        printResult("UC4", text, isPalindrome);
     }
 
     // ================= UC5 =================
@@ -99,18 +90,46 @@ public class PalindromeCheckerApp {
         boolean isPalindrome = true;
 
         for (int i = 0; i < text.length(); i++) {
-            char poppedChar = stack.pop();
-
-            if (Character.toLowerCase(text.charAt(i)) != poppedChar) {
+            if (Character.toLowerCase(text.charAt(i)) != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        if (isPalindrome) {
-            System.out.println("UC5 Result: \"" + text + "\" is a Palindrome.");
+        printResult("UC5", text, isPalindrome);
+    }
+
+    // ================= UC6 =================
+    private static void checkUsingQueueAndStack(String text) {
+
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        for (int i = 0; i < text.length(); i++) {
+            char ch = Character.toLowerCase(text.charAt(i));
+            stack.push(ch);
+            queue.add(ch);
+        }
+
+        boolean isPalindrome = true;
+
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        printResult("UC6", text, isPalindrome);
+    }
+
+    // Common Result Printer
+    private static void printResult(String uc, String word, boolean result) {
+
+        if (result) {
+            System.out.println(uc + " Result: \"" + word + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC5 Result: \"" + text + "\" is NOT a Palindrome.");
+            System.out.println(uc + " Result: \"" + word + "\" is NOT a Palindrome.\n");
         }
     }
 }
