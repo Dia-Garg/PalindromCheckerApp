@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
 
@@ -16,14 +18,14 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word to check: ");
         String input = scanner.nextLine();
 
-        checkUsingManualReverse(input);
-        checkUsingStringBuilder(input);
-        checkUsingCharArray(input);
-        checkUsingStack(input);
-        checkUsingQueueAndStack(input);
+        checkUsingManualReverse(input);      // UC2
+        checkUsingStringBuilder(input);      // UC3
+        checkUsingCharArray(input);          // UC4
+        checkUsingStack(input);              // UC5
+        checkUsingQueueAndStack(input);      // UC6
+        checkUsingDeque(input);              // UC7
 
         scanner.close();
-
         System.out.println("\nProgram execution completed.");
     }
 
@@ -36,23 +38,23 @@ public class PalindromeCheckerApp {
     }
 
     // ================= UC2 =================
-    private static void checkUsingManualReverse(String word) {
+    private static void checkUsingManualReverse(String text) {
 
         String reversed = "";
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed += word.charAt(i);
+        for (int i = text.length() - 1; i >= 0; i--) {
+            reversed += text.charAt(i);
         }
 
-        printResult("UC2", word, word.equalsIgnoreCase(reversed));
+        printResult("UC2", text, text.equalsIgnoreCase(reversed));
     }
 
     // ================= UC3 =================
-    private static void checkUsingStringBuilder(String word) {
+    private static void checkUsingStringBuilder(String text) {
 
-        String reversed = new StringBuilder(word).reverse().toString();
+        String reversed = new StringBuilder(text).reverse().toString();
 
-        printResult("UC3", word, word.equalsIgnoreCase(reversed));
+        printResult("UC3", text, text.equalsIgnoreCase(reversed));
     }
 
     // ================= UC4 =================
@@ -123,13 +125,34 @@ public class PalindromeCheckerApp {
         printResult("UC6", text, isPalindrome);
     }
 
-    // Common Result Printer
-    private static void printResult(String uc, String word, boolean result) {
+    // ================= UC7 =================
+    private static void checkUsingDeque(String text) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < text.length(); i++) {
+            deque.addLast(Character.toLowerCase(text.charAt(i)));
+        }
+
+        boolean isPalindrome = true;
+
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        printResult("UC7", text, isPalindrome);
+    }
+
+    // Common result method
+    private static void printResult(String uc, String text, boolean result) {
 
         if (result) {
-            System.out.println(uc + " Result: \"" + word + "\" is a Palindrome.\n");
+            System.out.println(uc + " Result: \"" + text + "\" is a Palindrome.\n");
         } else {
-            System.out.println(uc + " Result: \"" + word + "\" is NOT a Palindrome.\n");
+            System.out.println(uc + " Result: \"" + text + "\" is NOT a Palindrome.\n");
         }
     }
 }
